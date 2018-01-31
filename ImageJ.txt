@@ -1,0 +1,15 @@
+//Wait for user action
+run("Threshold..."); 
+waitForUser("set the threshold and press OK, or cancel to exit macro");
+run("Convert to Mask");
+
+//Obtenir un dossier et ses fichier via une fenetre user
+path = File.openDialog("Select a File");
+/open(path); // open the file
+dir = File.getParent(path);
+ame = File.getName(path);
+print("Path:", path);
+print("Name:", name);
+print("Directory:", dir);
+list = getFileList(dir);
+print("Directory contains "+list.length+" files");
