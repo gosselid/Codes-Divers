@@ -1,0 +1,21 @@
+Dim myPath As String, myFolder As String, myFile As String, Prio As String, Current_File As String
+Dim nb_term As Integer
+
+myPath = ThisWorkbook.Path
+
+myFolder = Dir(myPath & "\*", vbDirectory) //Recupere tous les éléments présents dans myPath (dossier et fichiers)
+myFolder = Dir() //Passe à l'élément suivant
+
+Do While myFolder <> "" 
+    If GetAttr(myPath & "\" & myFolder) And vbDirectory = vbDirectory Then  //Test si c'est un dossier
+        myFile = Dir(myPath & "\" & myFolder & "\*.ppt*") //Recupere tous les éléments comprenant .ppt dans le nom
+        
+        Do While myFile <> ""
+            Range("C" & nb).Select
+            Current_File = myPath & "\" & myFolder & "\" & myFile
+            Prio = Mid(ReadPropertyFromClosedFile(Current_File, "Comments", PropertyLocationBoth), 3)
+            Is_Done = Left(ReadPropertyFromClosedFile(Current_File, "Comments", PropertyLocationBoth), 1)
+            myFile = Dir()
+        Loop
+    End If
+Loop
