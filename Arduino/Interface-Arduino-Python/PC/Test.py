@@ -7,7 +7,7 @@ print("programme lance")
 
 board = Serial()
 board.baudrate = 9600
-board.port = "COM7"
+board.port = "COM5"
 
 
 sleep(0.01)
@@ -18,21 +18,18 @@ except:
     print("Connection impossible")
 
 sleep(3)
+quitter = False
 
 if board.is_open:
     print("Arduino Connecte")
-    while 1:
-        print("______")
-        print("liste des commandes")
-        print("pin 13: a0/a1 pour allumer/éteindre")
-        print("pince: p0/p1 pour allumer/éteindre")
-        print("Q pour quitter")
-        sig = input("saisir la commande: ")
-        if sig=="Q":
-        	exit(0)
-        board.write(bytes(sig.encode()))
-        #sleep(5)
-        val = board.read(7)
-        print(val.decode())
-        val = board.read(7)
-        print(val.decode())
+    while (not quitter):
+
+        sig = input("1 pour allumer, 0 pour eteindre, 2 pour quitter : ")
+        print(sig)
+        if(sig=='1' or sig=='0'):
+            board.write(bytes(sig.encode()))
+            val = board.read(6)
+            print("Etat:")
+            print(val.decode())
+        elif (sig=='2'):
+            quitter = True
