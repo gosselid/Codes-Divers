@@ -6,6 +6,7 @@ from time import sleep
 #print "Before cv2.VideoCapture(0)"
 #print cap.grab()
 cap = cv2.VideoCapture(0)
+
 while True:
     ret, frame = cap.read()
     if frame is None:
